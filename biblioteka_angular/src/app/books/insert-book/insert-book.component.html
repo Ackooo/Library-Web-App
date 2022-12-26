@@ -1,0 +1,26 @@
+<h2>Insert the book</h2>
+<app-display-errors [errors]="errors"></app-display-errors>
+<form (submit)="saveChanges()" [formGroup]="form"> 
+    <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input formControlName="title" matInput>
+        <mat-error *ngIf="form.invalid">{{errorMessageTitle()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Author</mat-label>
+        <input formControlName="author" matInput>
+        <mat-error *ngIf="form.invalid">{{errorMessageAuthor()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Available</mat-label>
+        <input formControlName="available" matInput>
+        <mat-error *ngIf="form.invalid">{{errorMessageAvailable()}}</mat-error>
+    </mat-form-field><br>
+    <div>
+        <button mat-flat-button color="primary"[disabled]="form.invalid">Save Changes</button>
+        <a mat-stroked-button routerLink="/books">Cancel</a>
+    </div>
+</form>
+

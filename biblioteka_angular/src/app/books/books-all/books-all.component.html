@@ -1,0 +1,49 @@
+<app-generic-list [list]="books">
+    <ng-container loading>
+        Books are loading...
+    </ng-container>
+    <ng-container empty>
+        There are <b>none</b> books to display!
+    </ng-container>
+    <ng-container content>
+        <mat-paginator [pageSizeOptions]="[5,10, 20, 50]" showFirstLastButtons 
+        [length]="maxNumberOfBooks" [pageSize]="pageSize" (page)="fetchPage($event)"
+        class="paginator">
+        </mat-paginator>
+        <div class="books-container">
+            <div *ngFor="let book of books; let index = index" class="book-container">
+                <h2 class="h2">
+                    {{book.title}}
+                </h2>
+                <div class="author">
+                    {{book.author}} 
+                </div>
+                <div>
+                    Available: <b>{{book.available}}</b>
+                </div>
+                <app-authorize-view [role]="'visitor'">
+                <ng-container authorized>
+                    <button mat-flat-button color="primary" (click)="request(book.id)" [disabled]="book.available==0">Request</button>
+                </ng-container>
+                </app-authorize-view>
+                <app-authorize-view [role]="'librarian'">
+                    <ng-container authorized>
+                        <div>
+                            <form (submit)="add(book.id)" [formGroup]="form">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Number:</mat-label>
+                                    <input formControlName="num" matInput>
+                                <!--<mat-error *ngIf="form.invalid">{{errorMessageTitle()}}</mat-error> -->
+                                </mat-form-field>
+                                <div>
+                                    <button mat-flat-button color="primary" >Add more!</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </ng-container>
+                </app-authorize-view>                
+            </div>
+        </div>     
+    </ng-container>
+</app-generic-list>

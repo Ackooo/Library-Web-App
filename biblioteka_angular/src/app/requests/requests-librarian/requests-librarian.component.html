@@ -1,0 +1,35 @@
+<app-generic-list [list]="requests">
+    <ng-container loading>
+        Requests are loading...
+    </ng-container>
+    <ng-container empty>
+        There are <b>no</b> requests to display!
+    </ng-container>
+    <ng-container content>
+        <div class="requests-container">
+            <div *ngFor="let request of requests; let index = index" class="request-container">
+                <div>
+                    <span class="label">Username</span>{{request.userName}}
+                </div>
+                <div>
+                    <span class="label">Title</span> {{request.bookTitle}} 
+                </div>
+                <div>
+                    <span class="label">User's issued number</span> {{request.userIssuedNumber}}
+                </div>
+                <div>
+                    <input matInput [matDatepicker]="picker" [min]="todayDate" placeholder="Date of return"
+                    (dateInput)="addev(request.id, $event)">
+                    <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker ></mat-datepicker>
+                </div>
+                <div class="button">             
+                    <button mat-flat-button color="primary" (click)="requestAccept(request.id, request.dateOfReturn)" [disabled]="!request.dateOfReturn || request.userIssuedNumber>4">Accept</button>
+                    <button mat-flat-button color="warn" (click)="requestDeny(request.id)">Deny</button>                        
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</app-generic-list>
+

@@ -1,0 +1,42 @@
+<app-generic-list [list]="requests">
+    <ng-container loading>
+        Requests are loading...
+    </ng-container>
+    <ng-container empty>
+        There are <b>no</b> requests to display!
+    </ng-container>
+    <ng-container content>
+        <div class="requests-container">
+            <h2>Current books</h2>
+            <div *ngFor="let request of requests; let index = index" class="request-container">
+                <div>
+                    <span class="label">Title</span>  {{request.bookTitle}} 
+                </div>
+                <div>
+                    <span class="label">Return date</span> {{request.dateOfReturn.split("T", 1)}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</app-generic-list>
+<app-generic-list [list]="requestsOver">
+    <ng-container loading>
+        Requests are loading...
+    </ng-container>
+    <ng-container empty>
+        There are <b>no</b> requests to display!
+    </ng-container>
+    <ng-container content>
+        <div class="requests-container">
+            <h2>Other requests</h2>
+            <div *ngFor="let request of requestsOver; let index = index" class="request-container">
+                <div>
+                  <span class="label">Title</span> {{request.bookTitle}} 
+                </div>
+                <div>
+                    <span class="label">Status</span> {{resolveState(request.state)}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</app-generic-list>

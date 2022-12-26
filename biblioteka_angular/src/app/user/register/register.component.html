@@ -1,0 +1,19 @@
+<app-display-errors [errors]="errors"></app-display-errors>
+
+<form (submit)="register(form.value)" [formGroup]="form">
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput>
+        <mat-error>{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" formControlName="password" matInput>
+        <mat-error>The password is required</mat-error>
+    </mat-form-field>
+    <mat-checkbox formControlName="type">Librarian</mat-checkbox>
+    <div>
+        <button mat-flat-button color="primary" [disabled]="form.invalid">{{buttonName}}</button>
+        <a mat-stroked-button routerLink="home">Back</a>
+    </div>
+</form>

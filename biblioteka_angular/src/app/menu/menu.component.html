@@ -1,0 +1,55 @@
+<mat-toolbar color="primary">
+        <a routerLink="" mat-button>
+            <mat-icon>
+                book
+            </mat-icon>
+           All books
+        </a>        
+        <app-authorize-view [role]=" 'librarian' ">
+            <ng-container authorized>
+                <a routerLink="books/insert" mat-button>
+                    <mat-icon>
+                        book
+                    </mat-icon>
+                    Insert
+                </a>
+                <a routerLink="requests/pending" mat-button>
+                    <mat-icon>
+                        book
+                    </mat-icon>
+                    List of pending requests
+                </a>
+                <a routerLink="requests/issued" mat-button>
+                    <mat-icon>
+                        book
+                    </mat-icon>
+                    List of issued books
+                </a>
+            </ng-container>
+        </app-authorize-view>  
+        <app-authorize-view [role]=" 'visitor' ">
+            <ng-container authorized>    
+                <a routerLink="requests/user" mat-button>
+                    <mat-icon>
+                        book
+                    </mat-icon>
+                        My books
+                </a>
+            </ng-container>
+        </app-authorize-view>  
+        <div class="user">
+            <app-authorize-view>
+                <ng-container authorized>
+                    <span>{{userService.getFieldFromToken('email')}}</span>
+                    <a mat-button (click)="userService.logout()">Logout</a>
+                </ng-container>
+                <ng-container notAuthorized>
+                    <a mat-button routerLink="login">Login</a>
+                    <a mat-button routerLink="register">Register</a>
+                </ng-container>
+            </app-authorize-view>
+        </div>       
+</mat-toolbar>
+
+
+
